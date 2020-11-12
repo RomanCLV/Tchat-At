@@ -15,12 +15,25 @@ npm install vue
 npm install --save axios
 ```
 
+# DataBase
+```
+cd server
+(créer le dossier data dans server/db)
+créer la db (new terminal) :
+- mongo
+- use TchatAt
+- db.createCollection("users")
+- db.createCollection("servers")
+- db.createCollection("rooms")
+
+mongod --dbpath ./db/data
+```
+
 # Server
 ```
 cd server
 npm install
 nodemon index.js
-mongod --dbpath ./db/data
 ```
 
 Individual install
