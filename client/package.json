@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RomanCLV/NodeJS_Chat_Server.git"
+    "url": "git+https://github.com/RomanCLV/Tchat-At.git"
   },
   "bugs": {
-    "url": "https://github.com/RomanCLV/NodeJS_Chat_Server/issues"
+    "url": "https://github.com/RomanCLV/Tchat-At/issues"
   },
-  "homepage": "https://github.com/RomanCLV/NodeJS_Chat_Server#readme",
+  "homepage": "https://github.com/RomanCLV/Tchat-At#readme",
   "author": "Roman CLAVIER",
   "license": "ISC",
   "dependencies": {

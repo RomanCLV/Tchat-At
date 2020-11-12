@@ -3,6 +3,7 @@ Tchat server with MongoDB and NodeJS
 
 # Client
 ```
+cd client
 npm install
 npm start
 ```
@@ -11,10 +12,26 @@ Individual install
 ```
 npm install --save socket.io-client
 npm install vue
+npm install --save axios
+```
+
+# DataBase
+```
+cd server
+(crÃ©er le dossier data dans server/db)
+crÃ©er la db (new terminal) :
+- mongo
+- use TchatAt
+- db.createCollection("users")
+- db.createCollection("servers")
+- db.createCollection("rooms")
+
+mongod --dbpath ./db/data
 ```
 
 # Server
 ```
+cd server
 npm install
 nodemon index.js
 ```
@@ -25,24 +42,26 @@ npm install --save socket.io
 npm install --save-dev nodemon
 npm install --save express
 npm install --save cors
+npm install --save mongodo
+npm install --save dotenv
 ```
 
 # Projet NoSQL - Le TChat
 
-## Le tchat - Critères d'acceptation
+## Le tchat - CritÃ¨res d'acceptation
 
 - Chaque utilisateur doit etre authentifie avant de pouvoir utiliser le tchat
 - Plusieurs salons de discussions sont disponible (#general, #annonces, ..)
 - On peut creer son propre canal de discussion #jeveuxmoncanal (tout le monde peut rejoindre)
-- Système de message privé
+- Systï¿½me de message privï¿½
 - Recevoir les messages non-lus lorsqu'on se connecte a nouveau
 - Avoir un petit historique de chaque canal de discussion accessible. (Ou lorsqu'on le rejoint)
 
 BONUS
-- Pouvoir choisir si le canal est privé/publique lorsqu'on cree un canal #jeveuxmoncanal
+- Pouvoir choisir si le canal est privï¿½/publique lorsqu'on cree un canal #jeveuxmoncanal
 - Creer des "sous-serveurs" / discord-like 
 
 RAPPEL
-- Front séparé du back ! Focus sur le back svp
+- Front sï¿½parï¿½ du back ! Focus sur le back svp
 
-### Sécurité, Simplicité, Maintenabilité
+### Sï¿½curitï¿½, Simplicitï¿½, Maintenabilitï¿½
