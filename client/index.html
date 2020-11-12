@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test Chat Socket.IO</title>
+
+        <style>
+            #app div {
+                margin: 20px;
+            }
+            #msgBox {
+                background-color: #d5ebff; 
+                width: 70%; 
+                min-width: 500px; min-height: 200px; 
+                border: cornflowerblue solid 1px; 
+                border-radius: 5px;
+            }
+            #msgBox p {
+                font-family: monospace;
+            }
+            p .date {
+                color: gray;
+                opacity: 0.5;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div>
+                <span>Pseudo: </span>
+                <input :placeholder="pseudoOri" @keypress.enter="setPseudo" v-model="pseudo" size="50" />
+            </div>
+            <!--<div>
+                <textarea v-model="str_messages" cols="75" rows="20" disabled></textarea>
+            </div>-->
+            <div id="msgBox"></div>
+            
+            <div>
+                <input placeholder="Message" @keypress.enter="sendMessage" v-model="client_message" size="50" />
+            </div>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.0/socket.io.js"></script>
+        <script type="text/javascript" src="./index.js"></script>
+    </body>
+</html>

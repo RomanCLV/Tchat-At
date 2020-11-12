@@ -1,0 +1,24 @@
+{
+  "name": "chat_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RomanCLV/NodeJS_Chat_Server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RomanCLV/NodeJS_Chat_Server/issues"
+  },
+  "homepage": "https://github.com/RomanCLV/NodeJS_Chat_Server#readme",
+  "author": "Roman CLAVIER",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^3.0.0",
+    "vue": "^2.6.12"
+  }
+}
