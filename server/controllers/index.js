@@ -1,7 +1,7 @@
 const path = require("path");
 
-function getIndex(req, res) {
+function index(req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
 }
 
-exports.getIndex = getIndex;
+exports.index = index;

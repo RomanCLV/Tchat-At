@@ -1,9 +1,21 @@
+const path = require("path");
 const db = require("../db/mongo");
 
-async function signin (req, res) {
+function signin(req, res) {
+    console.log("siiiiignnnnn");
+    res.sendFile(path.join(__dirname, "../../client/signin.html"));
+}
+
+async function addUser (req, res) {
     const user = req.body;
-    await db.create("users", user);
-    res.send("done");
+    const result = await db.create("users", user);
+    if (result) {
+        res.send("done");
+    }
+    else {
+        res.send("not done");
+    }
 }
 
 exports.signin = signin;
+exports.addUser = addUser;

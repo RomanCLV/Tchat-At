@@ -29,7 +29,7 @@ const PORT = process.env.PORT || 3000;
 
 io.on('connection', (socket_client) => {
     console.log('Client connected', socket_client.id);
-
+    
     const handlers = createHandlers(io, socket_client);
     socket_client.on('set_pseudo', handlers.SetPseudo);
     socket_client.on('send_message', handlers.SendMessage);
