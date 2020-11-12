@@ -1,15 +1,19 @@
 const SocketIoServer = require("socket.io").Server;
 const store = require("./store/store.js");
-
+const middlewares = require('./middlewares');
+const defaultRouter = require('./router/router');
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
 
+const root = "../client";
 const app = express();
 app.use(cors());
+app.use(express.static(root));
+app.use(middlewares.printHello);
+app.use('/', defaultRouter);
 
 const server = http.createServer(app);
-
 const io = new SocketIoServer(server, {
     cors: {
         origin: '*',
