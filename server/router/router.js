@@ -1,14 +1,11 @@
 const Router = require('express').Router;
 const router = Router();
-const path = require("path");
+const routerIndex = require("../router/index");
+const routerLogin = require("../router/login");
+const routerSignin = require("../router/signin");
 
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-router.get('/hello', (req, res) => {
-    console.log("hello router");
-    res.json();
-})
+router.use(routerIndex);
+router.use(routerLogin);
+router.use(routerSignin);
 
 module.exports = router;

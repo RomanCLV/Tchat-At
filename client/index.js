@@ -1,3 +1,6 @@
+//import createHandlers from "./handlers/PacketHandlers";
+//const handlers = createHandlers(app, socket);
+
 const urlApi = "http://localhost:3000";
 
 console.log("ready to connnect to: " + urlApi);
@@ -7,14 +10,14 @@ const socket = io(urlApi);
 socket.on('new_message', (data) => {
     app.messages.push(data);
     app.refreshMsgBox();
-})
+});
 
 socket.on('update_users', (data) => {
     app.users = data;
     if (app.messages.length !== 0) {
         app.refreshMsgBox();
     }
-})
+});
 
 const app = new Vue({
     el: '#app',
@@ -24,7 +27,8 @@ const app = new Vue({
             messages: [],
             pseudo: '',
             pseudoOri: 'Pseudo',
-            users: []
+            users: [],
+            isLogged: false
         };
     },
     methods: {
@@ -72,3 +76,7 @@ const app = new Vue({
         }
     }
 })
+
+async function subscribe(user){
+    return await axios.post(urlApi + "/sigin", user)
+}
