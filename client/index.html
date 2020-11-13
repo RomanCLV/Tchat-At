@@ -40,17 +40,31 @@
                 <div>
                     <p @click="goToLoginClick">Connection</p>
                 </div>
-                <div>
+                <div v-if="isLogged">
                     <p @click="logOutClick">Log out</p>
                 </div>
 
-                <div>
+                <div v-if="isLogged">
+                    <h3>Servers :</h3>
+                    <ul id="listServers">
+                    </ul>
+                </div>
+
+                <div v-if="isLogged && selectedServer !== null">
+                    <h3>Rooms :</h3>
+                    <ul id="listRooms">
+                    </ul>
+                </div>
+
+                <div v-if="isLogged">
                     <!-- style="background-color: {{user.color}} ;" -->
                     <p>Pseudo: <span>{{ pseudo }}</span></p>
                 </div>
-                <div id="msgBox"></div>
-                <div>
-                    <input placeholder="Message" @keypress.enter="sendMessage" v-model="client_message" size="50" :disabled="isLogged ? disabled : ''" />
+                <div v-if="selectedServer !== null">
+                    <div id="msgBox"></div>
+                    <div>
+                        <input placeholder="Message" @keypress.enter="sendMessage" v-model="client_message" size="50" :disabled="isLogged ? disabled : ''" />
+                    </div>
                 </div>
             </div>
 

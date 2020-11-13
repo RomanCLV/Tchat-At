@@ -1,3 +1,4 @@
+const db = require("../db/mongo");
 const path = require("path");
 
 function index(req, res) {

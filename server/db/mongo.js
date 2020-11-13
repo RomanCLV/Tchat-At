@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const { v4: uuidv4 } = require('uuid')
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost/TchatAt';
@@ -50,6 +50,20 @@ async function getServerByName(name) {
     return server;
 }
 
+async function getRoomById(id) {
+    const dbPath = db.collection("rooms");
+    const room = await dbPath.findOne({ _id: new ObjectId(id) })
+        .then((e) => { return e; })
+        .catch((e) => console.log(e))
+    return room;
+}
+
+async function find(collection) {
+    const dbPath = db.collection(collection);
+    objectDone = await dbPath.find().toArray();
+    return objectDone;
+}
+
 async function create(collection, object) {
     const dbPath = db.collection(collection);
     const result = await dbPath.insertOne(object)
@@ -60,6 +74,11 @@ async function create(collection, object) {
 
 main();
 
-exports.getServerByName = getServerByName;
+exports.addUser = addUser;
 exports.getUserByPseudo = getUserByPseudo;
+
+exports.getServerByName = getServerByName;
+exports.getRoomById = getRoomById;
+
+exports.find = find;
 exports.create = create;
