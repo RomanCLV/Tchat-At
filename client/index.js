@@ -12,7 +12,8 @@ const app = new Vue({
             isLogged: false,
             password1: '',
             password2: '',
-            myFuckingState: "tchat" // tchat / login / signin
+            status: "tchat", // tchat / login / signin,
+            msg_error: ''
         };
     },
     methods: {
@@ -58,51 +59,117 @@ const app = new Vue({
                 msgBox.appendChild(p);
             }
         },
-        async loginClick() {
-            const user = { 
-                pseudo: this.pseudo,
-                password: this.password1
-            }
-            console.log("je veux log", user);
-            return await axios.post(urlApi + "/login", user)
+        logOutClick() {
+            this.pseudo = '';
+            this.password1 = '';
+            this.password2 = '';
+            this.msg_error = '';
+            this.status = "login";
+            this.isLogged = false;
         },
-        async signinClick() {
-            if (this.password1.length > 5) {
-                if (this.password1 === this.password2) {
+        async loginClick() {
+            if (this.pseudo.length > 0) {
+                if (this.password1.length > 5) {
+                    
                     const user = { 
                         pseudo: this.pseudo,
                         password: this.password1
                     }
-                    console.log("je veux sign", user);
-
-                    const r = await axios.post(urlApi + "/signin", user);
+                    const r = await axios.post(urlApi + "/login", user)
                     if (r) {
-                        console.log(r);
+                        if (r.data.msg === "success") {
+                            this.status = 'tchat';
+                            this.isLogged = true;
+                            this.msg_error = '';
+                        }
+                        else {
+                            this.msg_error = r.data.msg;
+                            this.pseudo = '';
+                            this.password1 = '';
+                            this.password2 = '';
+                        }
                     }
-                }
+                    else {
+                        console.log("log - no result");
+                        this.msg_error = "no result";
+                        this.pseudo = '';
+                        this.password1 = '';
+                        this.password2 = '';
+                    }
+                } 
                 else {
-                    console.log("not the same");
+                    this.msg_error = "password length need to be > 5";
+                    this.password1 = '';
+                }
+            }
+            else {
+                this.msg_error = "pseudo length need to be > 0";
+            }
+
+            
+        },
+        async signinClick() {
+            if (this.pseudo.length > 0) {
+                if (this.password1.length > 5) {
+                    if (this.password1 === this.password2) {
+                        const user = { 
+                            pseudo: this.pseudo,
+                            password: this.password1
+                        }
+    
+                        const r = await axios.post(urlApi + "/signin", user);
+                        if (r) {
+                            if (r.data.msg === "success") {
+                                this.status = 'login';
+                                this.pseudo = '';
+                                this.password1 = '';
+                                this.password2 = '';
+                                this.msg_error = '';
+                            }
+                            else {
+                                this.msg_error = r.data.msg;
+                                this.pseudo = '';
+                                this.password1 = '';
+                                this.password2 = '';
+                            }
+                        }
+                        else {
+                            console.log("sign - no result");
+                            this.msg_error = "no result";
+                            this.pseudo = '';
+                            this.password1 = '';
+                            this.password2 = '';
+                        }
+                    }
+                    else {
+                        this.msg_error = "password are not the same";
+                        this.password1 = '';
+                        this.password2 = '';
+                    }
+                } 
+                else {
+                    this.msg_error = "password length need to be > 5";
                     this.password1 = '';
                     this.password2 = '';
                 }
-            } 
+            }
             else {
-                console.log("need > 5");
-                this.password1 = '';
-                this.password2 = '';
+                this.msg_error = "pseudo length need to be > 0";
             }
         },
         goToSigninClick() {
-            this.myFuckingState = "signin";
+            this.status = "signin";
             this.pseudo = '';
             this.password1 = '';
             this.password2 = '';
+            this.msg_error = '';
         },
         goToLoginClick() {
-            this.myFuckingState = "login";
+            this.status = "login";
             this.pseudo = '';
             this.password1 = '';
             this.password2 = '';
+            this.msg_error = '';
         }
     }
 })

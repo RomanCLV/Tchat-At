@@ -10,6 +10,9 @@ const createHandlers = require('./handlers/PacketHandlers');
 const root = "../client";
 const app = express();
 
+app.use(express.json());                            // body-parser
+app.use(express.urlencoded({ extended: true }));    // body-parser
+
 
 app.use(cors());
 app.use(express.static(root));

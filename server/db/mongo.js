@@ -39,9 +39,15 @@ async function getServerByName(name) {
 
 async function create(collection, object) {
     const dbPath = db.collection(collection);
-    await dbPath.insertOne(object)
-        .then((e) => console.log("New " + collection + " created : " + e.ops[0]._id))
-        .catch((e) => console.log(e))
+    const r = await dbPath.insertOne(object)
+        .then((e) => true)
+        .catch((e) => false)
+    console.log("create r: ", r);
+    return r;
 }
 
 main();
+
+exports.getServerByName = getServerByName;
+exports.getUserByPseudo = getUserByPseudo;
+exports.create = create;

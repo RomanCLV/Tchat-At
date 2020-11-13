@@ -3,22 +3,18 @@ const passwordHasher = require("password-hash");
 
 async function signin (req, res) {
     const user = req.body;
-    console.log('siiiiign:', req.body);
     const existingUser = await db.getUserByPseudo(user.pseudo);
     if (existingUser) {
-        console.log("user already exisiting!");
-        res.render('error', { msg: "user already exisiting!"});
+        res.status(200).json({msg: "user alredy existing"});
     } 
     else {
-        user.password = passwordHasher.generate(password);
+        user.password = passwordHasher.generate(user.password);
         const result = await db.create("users", user);
         if (result) {
-            console.log("user added!")
-            res.render('success', { msg: "user added!"});
+            res.status(200).json({msg: "success"});
         }
         else {
-            console.log("error!")
-            res.render('error', { msg: "error!"});
+            res.status(200).json({msg: "error"});
         }
     }
 }

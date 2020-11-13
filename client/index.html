@@ -29,9 +29,12 @@
     <body>
         <div id="app">
 
-            <div v-if="myFuckingState === 'tchat'">
+            <div v-if="status === 'tchat'">
                 <div>
                     <p @click="goToLoginClick">Connection</p>
+                </div>
+                <div>
+                    <p @click="logOutClick">Log out</p>
                 </div>
 
                 <div>
@@ -44,7 +47,7 @@
                 </div>
             </div>
 
-            <div v-else-if="myFuckingState === 'login'">
+            <div v-else-if="status === 'login'">
                 <h2>Log In</h1>
                 <div>
                     <span>Pseudo: </span>
@@ -63,7 +66,7 @@
                 </div>
             </div>
 
-            <div v-else-if="myFuckingState === 'signin'">
+            <div v-else-if="status === 'signin'">
                 <h2>Sign In</h1>
                 <div>
                     <span>Pseudo: </span>
@@ -89,7 +92,10 @@
             <div v-else>
                 <p>Not found</p>
             </div>
-            
+
+            <div>
+                <p>{{ msg_error }}</p>
+            </div>    
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
