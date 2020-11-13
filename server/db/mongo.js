@@ -22,8 +22,6 @@ async function main() {
 }
 
 async function getUserByPseudo(pseudo) {
-    await client.connect();
-    //const db = client.db(DB_NAME);
     const dbPath = db.collection("users");
     const user = await dbPath.findOne({ pseudo: pseudo })
         .then((e) => { return e; })
@@ -32,8 +30,6 @@ async function getUserByPseudo(pseudo) {
 }
 
 async function getServerByName(name) {
-    await client.connect();
-    //const db = client.db(DB_NAME);
     const dbPath = db.collection("servers");
     const server = await dbPath.findOne({ name: name })
         .then((e) => { return e; })
@@ -42,8 +38,6 @@ async function getServerByName(name) {
 }
 
 async function create(collection, object) {
-    await client.connect();
-    //const db = client.db(DB_NAME);
     const dbPath = db.collection(collection);
     await dbPath.insertOne(object)
         .then((e) => console.log("New " + collection + " created : " + e.ops[0]._id))

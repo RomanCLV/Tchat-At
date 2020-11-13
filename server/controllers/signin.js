@@ -1,15 +1,9 @@
-const path = require("path");
 const db = require("../db/mongo");
 const passwordHasher = require("password-hash");
 
-function signin(req, res) {
-    console.log("siiiiignnnnn");
-    res.sendFile(path.join(__dirname, "../../client/signin.html"));
-}
-
-async function addUser (req, res) {
+async function signin (req, res) {
     const user = req.body;
-    console.log('addddddd:', req.body);
+    console.log('siiiiign:', req.body);
     const existingUser = await db.getUserByPseudo(user.pseudo);
     if (existingUser) {
         console.log("user already exisiting!");
@@ -30,4 +24,3 @@ async function addUser (req, res) {
 }
 
 exports.signin = signin;
-exports.addUser = addUser;

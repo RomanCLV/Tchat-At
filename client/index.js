@@ -63,6 +63,7 @@ const app = new Vue({
                 pseudo: this.pseudo,
                 password: this.password1
             }
+            console.log("je veux log", user);
             return await axios.post(urlApi + "/login", user)
         },
         async signinClick() {
@@ -72,20 +73,36 @@ const app = new Vue({
                         pseudo: this.pseudo,
                         password: this.password1
                     }
-                    console.log("j'envoie", user);
+                    console.log("je veux sign", user);
 
-                    const r = await axios.post(urlApi + "/signin", user)
+                    const r = await axios.post(urlApi + "/signin", user);
                     if (r) {
                         console.log(r);
                     }
                 }
+                else {
+                    console.log("not the same");
+                    this.password1 = '';
+                    this.password2 = '';
+                }
+            } 
+            else {
+                console.log("need > 5");
+                this.password1 = '';
+                this.password2 = '';
             }
         },
         goToSigninClick() {
             this.myFuckingState = "signin";
+            this.pseudo = '';
+            this.password1 = '';
+            this.password2 = '';
         },
         goToLoginClick() {
             this.myFuckingState = "login";
+            this.pseudo = '';
+            this.password1 = '';
+            this.password2 = '';
         }
     }
 })
