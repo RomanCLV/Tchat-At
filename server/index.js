@@ -10,6 +10,9 @@ const createHandlers = require('./handlers/PacketHandlers');
 const root = "../client";
 const app = express();
 
+app.use(express.json());                            // body-parser
+app.use(express.urlencoded({ extended: true }));    // body-parser
+
 
 app.use(cors());
 app.use(express.static(root));
@@ -29,7 +32,7 @@ const PORT = process.env.PORT || 3000;
 
 io.on('connection', (socket_client) => {
     console.log('Client connected', socket_client.id);
-
+    
     const handlers = createHandlers(io, socket_client);
     socket_client.on('set_pseudo', handlers.SetPseudo);
     socket_client.on('send_message', handlers.SendMessage);

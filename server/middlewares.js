@@ -1,13 +1,20 @@
 function printHello(req, res, next) {
+    console.log("hello middleware: ");
+    next();
+}
+
+function isLogged(req, res, next) {
+    console.log("isLogged: ");
     const { url, query, params, body, headers } = req;
-    /*console.log({
+    console.log({
         url,
         query,
         params,
-        body
-    });*/
-    console.log("hello middleware");
+        body,
+        headers
+    });
     next();
 }
 
 exports.printHello = printHello;
+exports.isLogged = isLogged;
