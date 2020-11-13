@@ -1,23 +1,4 @@
-//import createHandlers from "./handlers/PacketHandlers";
-//const handlers = createHandlers(app, socket);
-
 const urlApi = "http://localhost:3000";
-
-console.log("ready to connnect to: " + urlApi);
-
-const socket = io(urlApi);
-
-socket.on('new_message', (data) => {
-    app.messages.push(data);
-    app.refreshMsgBox();
-});
-
-socket.on('update_users', (data) => {
-    app.users = data;
-    if (app.messages.length !== 0) {
-        app.refreshMsgBox();
-    }
-});
 
 const app = new Vue({
     el: '#app',
@@ -28,7 +9,10 @@ const app = new Vue({
             pseudo: '',
             pseudoOri: 'Pseudo',
             users: [],
-            isLogged: false
+            isLogged: false,
+            password1: '',
+            password2: '',
+            myFuckingState: "tchat" // tchat / login / signin
         };
     },
     methods: {
@@ -73,10 +57,51 @@ const app = new Vue({
                 p.appendChild(msg);
                 msgBox.appendChild(p);
             }
+        },
+        async loginClick() {
+            const user = { 
+                pseudo: this.pseudo,
+                password: this.password1
+            }
+            return await axios.post(urlApi + "/login", user)
+        },
+        async signinClick() {
+            if (this.password1.length > 5) {
+                if (this.password1 === this.password2) {
+                    const user = { 
+                        pseudo: this.pseudo,
+                        password: this.password1
+                    }
+                    console.log("j'envoie", user);
+
+                    const r = await axios.post(urlApi + "/signin", user)
+                    if (r) {
+                        console.log(r);
+                    }
+                }
+            }
+        },
+        goToSigninClick() {
+            this.myFuckingState = "signin";
+        },
+        goToLoginClick() {
+            this.myFuckingState = "login";
         }
     }
 })
 
-async function subscribe(user){
-    return await axios.post(urlApi + "/sigin", user)
-}
+console.log("ready to connnect to: " + urlApi);
+
+const socket = io(urlApi);
+
+socket.on('new_message', (data) => {
+    app.messages.push(data);
+    app.refreshMsgBox();
+});
+
+socket.on('update_users', (data) => {
+    app.users = data;
+    if (app.messages.length !== 0) {
+        app.refreshMsgBox();
+    }
+});
