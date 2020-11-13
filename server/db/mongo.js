@@ -29,6 +29,19 @@ async function getUserByPseudo(pseudo) {
     return user;
 }
 
+async function addUser(user) {
+    const dbPath = db.collection("users");
+    const r = Math.floor(Math.random() * Math.floor(256));
+    const g = Math.floor(Math.random() * Math.floor(256));
+    const b = Math.floor(Math.random() * Math.floor(256));
+    user.color = '#' + (r * g * b).toString(16);
+
+    const result = await dbPath.insertOne(user)
+        .then((e) => true)
+        .catch((e) => false)
+    return result;
+}
+
 async function getServerByName(name) {
     const dbPath = db.collection("servers");
     const server = await dbPath.findOne({ name: name })
@@ -39,11 +52,10 @@ async function getServerByName(name) {
 
 async function create(collection, object) {
     const dbPath = db.collection(collection);
-    const r = await dbPath.insertOne(object)
+    const result = await dbPath.insertOne(object)
         .then((e) => true)
         .catch((e) => false)
-    console.log("create r: ", r);
-    return r;
+    return result;
 }
 
 main();

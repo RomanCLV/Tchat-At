@@ -4,28 +4,23 @@ const app = new Vue({
     el: '#app',
     data() { 
         return {
-            client_message: '',
-            messages: [],
-            pseudo: '',
-            pseudoOri: 'Pseudo',
-            users: [],
             isLogged: false,
+            pseudo: '',
             password1: '',
             password2: '',
-            status: "tchat", // tchat / login / signin,
-            msg_error: ''
+            status: "tchat", // tchat / login / signin
+            msg_error: '',
+            client_message: '',
+            messages: [],
+            user: null,
+            users: [],
         };
     },
     methods: {
         sendMessage() {
-            socket.emit('send_message', { message: this.client_message });
-            this.client_message = '';
-        },
-        setPseudo() {
-            if (this.pseudo.length !== 0) {
-                socket.emit('set_pseudo', { pseudo: this.pseudo });
-                this.pseudoOri = this.pseudo;
-                this.pseudo = '';
+            if (this.isLogged && this.client_message.length > 0) {
+                socket.emit('send_message', { message: this.client_message });
+                this.client_message = '';
             }
         },
         refreshMsgBox() {
@@ -79,6 +74,8 @@ const app = new Vue({
                     if (r) {
                         if (r.data.msg === "success") {
                             this.status = 'tchat';
+                            this.user = r.data.user;
+                            console.log(this);
                             this.isLogged = true;
                             this.msg_error = '';
                         }

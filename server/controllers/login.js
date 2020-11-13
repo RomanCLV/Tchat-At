@@ -6,7 +6,7 @@ async function login (req, res) {
     const existingUser = await db.getUserByPseudo(user.pseudo);
     if (existingUser) {
         if (passwordHasher.verify(user.password, existingUser.password)) {
-            res.status(200).json({msg: "success"});
+            res.status(200).json({ msg: "success", user: existingUser });
         }
         else {
             res.status(200).json({msg: "wrong password !"});

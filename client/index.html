@@ -12,9 +12,13 @@
             #msgBox {
                 background-color: #d5ebff; 
                 width: 70%; 
-                min-width: 500px; min-height: 200px; 
+                min-width: 500px; 
+                min-height: 500px; 
+                max-height: 500px; 
                 border: cornflowerblue solid 1px; 
                 border-radius: 5px;
+                overflow-y: auto;
+                padding: 10px;
             }
             #msgBox p {
                 font-family: monospace;
@@ -22,6 +26,9 @@
             p .date {
                 color: gray;
                 opacity: 0.5;
+            }
+            #pseudo {
+                color: black;
             }
 
         </style>
@@ -38,8 +45,8 @@
                 </div>
 
                 <div>
-                    <span>Pseudo: </span>
-                    <input :placeholder="pseudoOri" @keypress.enter="setPseudo" v-model="pseudo" size="50" :disabled="isLogged ? disabled : ''" />
+                    <!-- style="background-color: {{user.color}} ;" -->
+                    <p>Pseudo: <span>{{ pseudo }}</span></p>
                 </div>
                 <div id="msgBox"></div>
                 <div>
